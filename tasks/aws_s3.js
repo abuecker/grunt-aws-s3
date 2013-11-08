@@ -351,7 +351,14 @@ module.exports = function (grunt) {
 							downloadCallback(null);
 						}
 						else {
-							s3.getObject(object, function (err, data) {
+
+                            // only send the Key & Bucket in as parameters
+                            var params = {
+                                Key: object.Key,
+                                Bucket: object.Bucket
+                            };
+
+							s3.getObject(params, function (err, data) {
 
 								if (err) {
 									downloadCallback(err);
